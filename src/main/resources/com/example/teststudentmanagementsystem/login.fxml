@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teststudentmanagementsystem.LoginController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="79.0" layoutY="75.0" prefHeight="200.0" prefWidth="236.0">
+         <children>
+            <Label text="LoginPage" />
+            <HBox prefHeight="46.0" prefWidth="236.0">
+               <children>
+                  <Label text="Username" />
+                  <TextField fx:id="usernameField" promptText="Input username" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="28.0" prefHeight="46.0" prefWidth="236.0">
+               <children>
+                  <Label text="Password" />
+                  <PasswordField fx:id="passwordField" promptText="Input password here" />
+               </children>
+            </HBox>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClicked" text="Login" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
