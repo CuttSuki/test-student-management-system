@@ -22,6 +22,8 @@ public class LoginController {
         String passwordText = passwordField.getText();
         if (UserValidator.validateLogin(usernameText, passwordText)){
             System.out.println("Login sucesss!");
+        } else {
+            System.out.println("Invalid credentials!");
         }
     }
 }

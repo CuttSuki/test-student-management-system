@@ -15,15 +15,12 @@ public class UserValidator {
              PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setString(1, userInput);
             try (ResultSet rs = statement.executeQuery()){
-                if (rs.next()){
-                    String username = rs.getString("username");
-                    String password = rs.getString("password");
-                    if (!passInput.equals(password)){
-                        System.out.println("Invalid Password!");
+                if (!rs.next()){
                         return false;
                     }
-                } else {
-                    System.out.println("Invalid username!");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                if (!passInput.equals(password)){
                     return false;
                 }
             }
