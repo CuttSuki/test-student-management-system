@@ -31,7 +31,8 @@ public class StudentSpawner {
                 }
             }
         } catch (SQLException e){
-
+            System.out.println("Error getting student data: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

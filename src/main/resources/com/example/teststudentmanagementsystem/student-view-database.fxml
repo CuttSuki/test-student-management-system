@@ -3,15 +3,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teststudentmanagementsystem.StudentViewController">
+<AnchorPane fx:id="anchorPane" onMouseClicked="#onAnchorPaneMouseClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teststudentmanagementsystem.StudentViewController">
    <children>
-      <TableView fx:id="tableView" layoutX="144.0" layoutY="93.0" prefHeight="200.0" prefWidth="304.0">
+      <TableView fx:id="tableView" layoutX="61.0" layoutY="134.0" prefHeight="230.0" prefWidth="494.0">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="75.0" text="StudentID" />
           <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
             <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
             <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="ageColumn" prefWidth="75.0" text="Age" />
         </columns>
       </TableView>
+      <HBox layoutX="61.0" layoutY="14.0" prefHeight="24.0" prefWidth="219.0">
+         <children>
+            <Label text="First Name" />
+            <TextField fx:id="firstNameTextField" />
+         </children>
+      </HBox>
+      <HBox layoutX="61.0" layoutY="50.0" prefHeight="24.0" prefWidth="219.0">
+         <children>
+            <Label text="Last Name" />
+            <TextField fx:id="lastNameTextField" />
+         </children>
+      </HBox>
+      <HBox layoutX="300.0" layoutY="14.0" prefHeight="24.0" prefWidth="219.0">
+         <children>
+            <Label text="Email" />
+            <TextField fx:id="emailTextField" />
+         </children>
+      </HBox>
+      <Button layoutX="274.0" layoutY="99.0" mnemonicParsing="false" onAction="#onInsertButtonClicked" text="Insert" />
+      <HBox layoutX="300.0" layoutY="50.0" prefHeight="24.0" prefWidth="219.0">
+         <children>
+            <Label text="Age" />
+            <TextField fx:id="ageTextField" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
