@@ -12,6 +12,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.sql.SQLException;
+
 public class StudentViewController {
     @FXML private AnchorPane anchorPane;
     @FXML private TableView<Student> tableView;
@@ -45,7 +47,7 @@ public class StudentViewController {
     }
 
     @FXML
-    private void onInsertButtonClicked(ActionEvent e){
+    private void onInsertButtonClicked(ActionEvent e) throws SQLException {
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
         String email = emailTextField.getText();

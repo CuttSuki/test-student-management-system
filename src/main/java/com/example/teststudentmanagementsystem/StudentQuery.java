@@ -11,7 +11,7 @@ public class StudentQuery {
                 """;
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
-            
+
         }
     }
 }
