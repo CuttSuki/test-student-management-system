@@ -1,5 +1,7 @@
 package com.example.teststudentmanagementsystem;
 
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,23 @@ public class StudentDataManager {
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0){
                 System.out.println("Inserted " + rowsInserted + " rows.");
+            }
+        }
+    }
+    public static void updateStudent(String firstName, String lastname, String email, int age, int id) throws SQLException{
+        String sql = """
+                UPDATE students SET first_name = ?, last_name = ?, email =?, age =? WHERE id = ?
+                """;
+        try (Connection conn = Database.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastname);
+            pstmt.setString(3, email);
+            pstmt.setInt(4, age);
+            pstmt.setInt(5, id);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0){
+                Alerter.sendAlert(Alert.AlertType.INFORMATION, "Success", "Update successfully executed!");
             }
         }
     }

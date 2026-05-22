@@ -1,0 +1,4 @@
+/* Option A: Using a class */
+.update-pane {
+    -fx-background-color: white; /* Replace with your preferred hex or color name */
+}

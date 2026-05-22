@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.sql.SQLException;
 
@@ -27,20 +28,51 @@ public class StudentViewController {
     @FXML private TableColumn<Student, String> lastNameColumn;
     @FXML private TableColumn<Student, String> emailColumn;
     @FXML private TableColumn<Student, Integer> ageColumn;
+    @FXML private Button updateButton;
+    @FXML private Button deleteButton;
+    @FXML private Button confirmUpdateButton;
+    @FXML private Button cancelUpdateButton;
+    @FXML private TextField firstNameUpdatedTextField;
+    @FXML private TextField lastNameUpdatedTextField;
+    @FXML private TextField emailUpdatedTextField;
+    @FXML private TextField ageUpdatedTextField;
+    @FXML private Pane updatePane;
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private final int ROWS_PER_PAGE = 10;
 
     @FXML
     public void initialize(){
+        updatePane.setVisible(false);
+        anchorPane.setFocusTraversable(true);
+        anchorPane.setOnMouseClicked(event -> {
+            anchorPane.requestFocus();
+        });
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
         StudentSpawner.getAllStudentData(studentList);
+        tableView.setOnMouseClicked(event -> {
+            System.out.println(tableView.getSelectionModel().getSelectedItem().getClass());
+        });
         loadPagination();
     }
 
+    @FXML
+    private void onUpdateButtonClicked(ActionEvent e){
+        Student studentEntry = tableView.getSelectionModel().getSelectedItem();
+        if (studentEntry == null){
+            Alerter.sendAlert(Alert.AlertType.ERROR, "No student entry found", "Please click a student row.");
+        } else {
+            updatePane.setVisible(true);
+            updatePane.requestFocus();
+        }
+    }
+    @FXML
+    private void onDeleteButtonClicked(ActionEvent e){
+        System.out.println("Deleting..");
+    }
     @FXML
     private void onAnchorPaneMouseClicked(MouseEvent e){
         if (e.getButton() == MouseButton.SECONDARY){
@@ -68,6 +100,36 @@ public class StudentViewController {
         int pageCount = (int) Math.ceil((double) StudentDataManager.getStudentCount()/ROWS_PER_PAGE);
         pagination.setPageCount(pageCount);
         pagination.setPageFactory(this::createPage);
+    }
+
+    @FXML
+    private void onConfirmUpdateButtonClicked(ActionEvent e) throws SQLException{
+        Student selectedStudent  = tableView.getSelectionModel().getSelectedItem();
+        String firstNameUpdated = (!firstNameUpdatedTextField.getText().isEmpty()) ? firstNameUpdatedTextField.getText() : selectedStudent.getFirstName();
+        String lastNameUpdated = (!lastNameUpdatedTextField.getText().isEmpty()) ? lastNameUpdatedTextField.getText() : selectedStudent.getLastName();
+        String emailUpdated = (!emailUpdatedTextField.getText().isEmpty()) ? emailUpdatedTextField.getText() : selectedStudent.getEmail();
+        String ageUpdated = (!ageUpdatedTextField.getText().isEmpty()) ? ageUpdatedTextField.getText() : Integer.toString(selectedStudent.getAge());
+
+        if (!ageUpdated.matches("\\d++")){
+            System.out.println("Conversion failed.");
+            return;
+        }
+        int ageUpdatedInt = Integer.parseInt(ageUpdated);
+        int id = selectedStudent.getId();
+        StudentDataManager.updateStudent(firstNameUpdated, lastNameUpdated, emailUpdated, ageUpdatedInt, id);
+        studentList.clear();
+        StudentSpawner.getAllStudentData(studentList);
+        loadPagination();
+        updatePane.setVisible(false);
+    }
+
+    @FXML
+    private void onCancelUpdateButtonClicked(ActionEvent e){
+        firstNameUpdatedTextField.clear();
+        lastNameUpdatedTextField.clear();
+        emailUpdatedTextField.clear();
+        ageUpdatedTextField.clear();
+        updatePane.setVisible(false);
     }
 
     private Node createPage(int pageIndex) {
