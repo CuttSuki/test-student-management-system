@@ -169,7 +169,6 @@ public class StudentViewController {
                 studentList.subList(fromIndex, toIndex)
         ));
         tableView.refresh();
-
         // Return the already-injected tableView
         return new javafx.scene.layout.VBox();
     }
