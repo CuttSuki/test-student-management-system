@@ -53,7 +53,7 @@
             <Button fx:id="deleteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteButtonClicked" prefHeight="26.0" prefWidth="109.0" text="Delete" />
          </children></HBox>
       <HBox layoutY="382.0" prefHeight="100.0" prefWidth="200.0" />
-      <Pane fx:id="updatePane" layoutX="50.0" layoutY="80.0" prefHeight="334.0" prefWidth="515.0" styleClass="update-pane" stylesheets="@stylesheets.css">
+      <Pane fx:id="updatePane" layoutX="50.0" layoutY="80.0" prefHeight="334.0" prefWidth="515.0" styleClass="update-pane" stylesheets="@stylesheets.css" visible="false">
          <children>
             <HBox layoutX="14.0" layoutY="104.0" prefHeight="26.0" prefWidth="252.0">
                <children>
@@ -81,6 +81,13 @@
             </HBox>
             <Button fx:id="confirmUpdateButton" layoutX="99.0" layoutY="278.0" mnemonicParsing="false" onAction="#onConfirmUpdateButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Confirm" />
             <Button fx:id="cancelUpdateButton" layoutX="230.0" layoutY="278.0" mnemonicParsing="false" onAction="#onCancelUpdateButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Cancel" />
+         </children>
+      </Pane>
+      <Pane fx:id="deletePane" layoutX="118.0" layoutY="157.0" prefHeight="206.0" prefWidth="362.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <Label layoutX="97.0" layoutY="45.0" text="Confirm student entry deletion?" />
+            <Button fx:id="confirmDeleteButton" layoutX="71.0" layoutY="167.0" mnemonicParsing="false" onAction="#onConfirmDeleteButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Confirm" />
+            <Button fx:id="cancelDeleteButton" layoutX="191.0" layoutY="167.0" mnemonicParsing="false" onAction="#onCancelDeleteButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Cancel" />
          </children>
       </Pane>
    </children>

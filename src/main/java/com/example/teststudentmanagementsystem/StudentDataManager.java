@@ -41,6 +41,19 @@ public class StudentDataManager {
             }
         }
     }
+    public static void deleteStudent(int id) throws SQLException{
+        String sql = """
+                DELETE FROM students WHERE id = ?
+                """;
+        try (Connection conn = Database.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, id);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0){
+                Alerter.sendAlert(Alert.AlertType.INFORMATION, "Success", "Successfully deleted the row!");
+            }
+        }
+    }
     public static int getStudentCount() {
         String sql = """
                 SELECT count(*) as total_count from students
@@ -51,7 +64,6 @@ public class StudentDataManager {
                 if (rs.next()){
                     return rs.getInt("total_count");
                 }
-
         } catch (SQLException e) {
             System.out.println("Error counting student data: " + e.getMessage());
         }

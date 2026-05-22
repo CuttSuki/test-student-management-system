@@ -16,7 +16,7 @@ public class StudentSpawner {
     public static void getAllStudentData(ObservableList<Student> studentList){
         try {
             String sql = """
-                    SELECT id, first_name, last_name, age, email from STUDENTS
+                    SELECT id, first_name, last_name, age, email from STUDENTS ORDER BY id
                     """;
             try (Connection conn = Database.getConnection();
                  PreparedStatement statement = conn.prepareStatement(sql);

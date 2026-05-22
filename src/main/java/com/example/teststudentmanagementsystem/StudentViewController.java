@@ -32,10 +32,13 @@ public class StudentViewController {
     @FXML private Button deleteButton;
     @FXML private Button confirmUpdateButton;
     @FXML private Button cancelUpdateButton;
+    @FXML private Button confirmDeleteButton;
+    @FXML private Button cancelDeleteButton;
     @FXML private TextField firstNameUpdatedTextField;
     @FXML private TextField lastNameUpdatedTextField;
     @FXML private TextField emailUpdatedTextField;
     @FXML private TextField ageUpdatedTextField;
+    @FXML private Pane deletePane;
     @FXML private Pane updatePane;
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private final int ROWS_PER_PAGE = 10;
@@ -67,11 +70,17 @@ public class StudentViewController {
         } else {
             updatePane.setVisible(true);
             updatePane.requestFocus();
+            tableView.setDisable(true);
         }
     }
     @FXML
     private void onDeleteButtonClicked(ActionEvent e){
-        System.out.println("Deleting..");
+        if(tableView.getSelectionModel().getSelectedItem() == null){
+            Alerter.sendAlert(Alert.AlertType.ERROR, "No student entry found", "Please click a student row.");
+            return;
+        }
+        tableView.setDisable(true);
+        deletePane.setVisible(true);
     }
     @FXML
     private void onAnchorPaneMouseClicked(MouseEvent e){
@@ -89,8 +98,11 @@ public class StudentViewController {
             Alerter.sendAlert(Alert.AlertType.ERROR, "Missing Input Field", "Please fill out all input fields!");
             return;
         }
+        if (!ageTextField.getText().matches("\\d++")){
+            Alerter.sendAlert(Alert.AlertType.ERROR, "Invalid Input Type", "The age input field must be an integer!");
+            return;
+        }
         int age = Integer.parseInt(ageTextField.getText());
-        System.out.println(firstName + " " + lastName +"'s email: " + email );
         StudentDataManager.insertStudent(firstName, lastName, email, age);
         studentList.clear();
         StudentSpawner.getAllStudentData(studentList);
@@ -121,6 +133,7 @@ public class StudentViewController {
         StudentSpawner.getAllStudentData(studentList);
         loadPagination();
         updatePane.setVisible(false);
+        tableView.setDisable(false);
     }
 
     @FXML
@@ -130,8 +143,24 @@ public class StudentViewController {
         emailUpdatedTextField.clear();
         ageUpdatedTextField.clear();
         updatePane.setVisible(false);
+        tableView.setDisable(false);
     }
 
+    @FXML
+    private void onConfirmDeleteButtonClicked() throws SQLException {
+        Student selectedStudent = tableView.getSelectionModel().getSelectedItem();
+        int id = selectedStudent.getId();
+        StudentDataManager.deleteStudent(id);
+        studentList.clear();
+        StudentSpawner.getAllStudentData(studentList);
+        loadPagination();
+        deletePane.setVisible(false);
+        tableView.setDisable(false);
+    }
+    @FXML private void onCancelDeleteButtonClicked(){
+        deletePane.setVisible(false);
+        tableView.setDisable(false);
+    }
     private Node createPage(int pageIndex) {
         int fromIndex = pageIndex * ROWS_PER_PAGE;
         int toIndex   = Math.min(fromIndex + ROWS_PER_PAGE, StudentDataManager.getStudentCount());
