@@ -42,4 +42,29 @@ public class StudentSpawner {
             e.printStackTrace();
         }
     }
+
+    public static void getSearchedStudents(ObservableList<Student>studentList, String searcher) throws SQLException{
+        String sql = """
+                SELECT id, first_name, last_name, email, age, created_at, updated_at from STUDENTS WHERE LOWER(first_name) LIKE ? ORDER BY id
+                """;
+        try(Connection conn = Database.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, searcher + "%");
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()){
+                    int id = rs.getInt("id");
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    int age = rs.getInt("age");
+                    String email = rs.getString("email");
+                    OffsetDateTime createdAt = rs.getObject("created_at", OffsetDateTime.class);
+                    OffsetDateTime updatedAt = rs.getObject("updated_at", OffsetDateTime.class);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedTime = createdAt.format(formatter);
+                    String formattedUpdatedTime = updatedAt.format(formatter);
+                    studentList.add(new Student(firstName, lastName, age, id, email, formattedTime, formattedUpdatedTime));
+                }
+            }
+        }
+    }
 }

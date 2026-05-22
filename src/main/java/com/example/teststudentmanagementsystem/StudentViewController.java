@@ -42,6 +42,7 @@ public class StudentViewController {
     @FXML private TextField ageUpdatedTextField;
     @FXML private Pane deletePane;
     @FXML private Pane updatePane;
+    @FXML private TextField searchTextField;
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private final int ROWS_PER_PAGE = 10;
 
@@ -60,9 +61,6 @@ public class StudentViewController {
         createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         updatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         StudentSpawner.getAllStudentData(studentList);
-        tableView.setOnMouseClicked(event -> {
-            System.out.println(tableView.getSelectionModel().getSelectedItem().getClass());
-        });
         loadPagination();
     }
 
@@ -165,9 +163,23 @@ public class StudentViewController {
         deletePane.setVisible(false);
         tableView.setDisable(false);
     }
+    @FXML
+    private void onSearchButtonClicked() throws SQLException{
+        String searcher = searchTextField.getText();
+        studentList.clear();
+        if (searcher.isEmpty()){
+            StudentSpawner.getAllStudentData(studentList);
+        } else {
+            StudentSpawner.getSearchedStudents(studentList, searcher);
+        }
+        loadPagination();
+    }
     private Node createPage(int pageIndex) {
+        if (studentList.isEmpty()){
+            return null;
+        }
         int fromIndex = pageIndex * ROWS_PER_PAGE;
-        int toIndex   = Math.min(fromIndex + ROWS_PER_PAGE, StudentDataManager.getStudentCount());
+        int toIndex   = Math.min(fromIndex + ROWS_PER_PAGE, studentList.size());
         tableView.refresh();
         tableView.setItems(FXCollections.observableArrayList(
                 studentList.subList(fromIndex, toIndex)

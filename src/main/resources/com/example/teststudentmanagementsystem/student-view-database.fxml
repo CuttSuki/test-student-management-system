@@ -92,5 +92,7 @@
             <Button fx:id="cancelDeleteButton" layoutX="191.0" layoutY="167.0" mnemonicParsing="false" onAction="#onCancelDeleteButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Cancel" />
          </children>
       </Pane>
+      <TextField fx:id="searchTextField" layoutX="541.0" layoutY="94.0" promptText="Search" />
+      <Button fx:id="searchButton" layoutX="702.0" layoutY="94.0" mnemonicParsing="false" onAction="#onSearchButtonClicked" text="Search" />
    </children>
 </AnchorPane>
