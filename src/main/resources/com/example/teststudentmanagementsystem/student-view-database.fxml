@@ -10,50 +10,52 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="anchorPane" onMouseClicked="#onAnchorPaneMouseClicked" prefHeight="485.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teststudentmanagementsystem.StudentViewController">
+<AnchorPane fx:id="anchorPane" onMouseClicked="#onAnchorPaneMouseClicked" prefHeight="485.0" prefWidth="968.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teststudentmanagementsystem.StudentViewController">
    <children>
-      <TableView fx:id="tableView" layoutX="61.0" layoutY="134.0" prefHeight="230.0" prefWidth="494.0">
+      <TableView fx:id="tableView" layoutX="201.0" layoutY="127.0" prefHeight="230.0" prefWidth="680.0">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="75.0" text="StudentID" />
           <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
             <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
             <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
             <TableColumn fx:id="ageColumn" prefWidth="75.0" text="Age" />
+            <TableColumn fx:id="createdAtColumn" prefWidth="150.0" text="Created At" />
+            <TableColumn fx:id="updatedAtColumn" prefWidth="150.0" text="Updated At" />
         </columns>
       </TableView>
-      <HBox layoutX="61.0" layoutY="14.0" prefHeight="24.0" prefWidth="219.0">
+      <HBox layoutX="262.0" layoutY="9.0" prefHeight="24.0" prefWidth="219.0">
          <children>
             <Label text="First Name" />
             <TextField fx:id="firstNameTextField" />
          </children>
       </HBox>
-      <HBox layoutX="61.0" layoutY="50.0" prefHeight="24.0" prefWidth="219.0">
+      <HBox layoutX="262.0" layoutY="45.0" prefHeight="24.0" prefWidth="219.0">
          <children>
             <Label text="Last Name" />
             <TextField fx:id="lastNameTextField" />
          </children>
       </HBox>
-      <HBox layoutX="300.0" layoutY="14.0" prefHeight="24.0" prefWidth="219.0">
+      <HBox layoutX="501.0" layoutY="9.0" prefHeight="24.0" prefWidth="219.0">
          <children>
             <Label text="Email" />
             <TextField fx:id="emailTextField" />
          </children>
       </HBox>
-      <Button layoutX="274.0" layoutY="99.0" mnemonicParsing="false" onAction="#onInsertButtonClicked" text="Insert" />
-      <HBox layoutX="300.0" layoutY="50.0" prefHeight="24.0" prefWidth="219.0">
+      <Button layoutX="475.0" layoutY="94.0" mnemonicParsing="false" onAction="#onInsertButtonClicked" text="Insert" />
+      <HBox layoutX="501.0" layoutY="45.0" prefHeight="24.0" prefWidth="219.0">
          <children>
             <Label text="Age" />
             <TextField fx:id="ageTextField" />
          </children>
       </HBox>
-      <Pagination fx:id="pagination" layoutX="155.0" layoutY="352.0" prefHeight="66.0" prefWidth="283.0" />
-      <HBox layoutX="187.0" layoutY="432.0" prefHeight="26.0" prefWidth="219.0">
+      <Pagination fx:id="pagination" layoutX="356.0" layoutY="347.0" prefHeight="66.0" prefWidth="283.0" />
+      <HBox layoutX="388.0" layoutY="427.0" prefHeight="26.0" prefWidth="219.0">
          <children>
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#onUpdateButtonClicked" prefHeight="26.0" prefWidth="109.0" text="Update" />
             <Button fx:id="deleteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteButtonClicked" prefHeight="26.0" prefWidth="109.0" text="Delete" />
          </children></HBox>
-      <HBox layoutY="382.0" prefHeight="100.0" prefWidth="200.0" />
-      <Pane fx:id="updatePane" layoutX="50.0" layoutY="80.0" prefHeight="334.0" prefWidth="515.0" styleClass="update-pane" stylesheets="@stylesheets.css" visible="false">
+      <HBox layoutX="201.0" layoutY="377.0" prefHeight="100.0" prefWidth="200.0" />
+      <Pane fx:id="updatePane" layoutX="251.0" layoutY="75.0" prefHeight="334.0" prefWidth="515.0" styleClass="update-pane" stylesheets="@stylesheets.css" visible="false">
          <children>
             <HBox layoutX="14.0" layoutY="104.0" prefHeight="26.0" prefWidth="252.0">
                <children>
@@ -83,7 +85,7 @@
             <Button fx:id="cancelUpdateButton" layoutX="230.0" layoutY="278.0" mnemonicParsing="false" onAction="#onCancelUpdateButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Cancel" />
          </children>
       </Pane>
-      <Pane fx:id="deletePane" layoutX="118.0" layoutY="157.0" prefHeight="206.0" prefWidth="362.0" style="-fx-background-color: white;" visible="false">
+      <Pane fx:id="deletePane" layoutX="319.0" layoutY="152.0" prefHeight="206.0" prefWidth="362.0" style="-fx-background-color: white;" visible="false">
          <children>
             <Label layoutX="97.0" layoutY="45.0" text="Confirm student entry deletion?" />
             <Button fx:id="confirmDeleteButton" layoutX="71.0" layoutY="167.0" mnemonicParsing="false" onAction="#onConfirmDeleteButtonClicked" prefHeight="26.0" prefWidth="74.0" text="Confirm" />

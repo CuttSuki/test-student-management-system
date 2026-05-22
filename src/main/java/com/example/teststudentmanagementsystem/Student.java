@@ -6,12 +6,16 @@ public class Student {
     private int age;
     private int id;
     private String email;
-    Student(String firstName, String lastName, int age, int id, String email){
+    private String createdAt;
+    private String updatedAt;
+    Student(String firstName, String lastName, int age, int id, String email, String createdAt, String updatedAt){
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.id = id;
         this.email = email;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     public String getFirstName(){
         return firstName;
@@ -22,6 +26,8 @@ public class Student {
     public String getEmail(){
         return email;
     }
+    public String getCreatedAt() { return createdAt; }
+    public String getUpdatedAt() { return updatedAt; }
     public int getAge(){
         return age;
     }

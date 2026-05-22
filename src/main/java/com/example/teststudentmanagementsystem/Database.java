@@ -9,7 +9,10 @@ public class Database {
     private static final String USER = "postgres.kcbgfizplkmgppkoyihl";
     private static final String PASS = "@Cutterion123";
     public static Connection getConnection() throws SQLException{
-        return DriverManager.getConnection(URL, USER, PASS);
+        String URL_ENV = StudentLoginApplication.dotenv.get("DATABASE_URL");
+        String USER_ENV = StudentLoginApplication.dotenv.get("DATABASE_USER");
+        String PASS_ENV = StudentLoginApplication.dotenv.get("DATABASE_PASS");
+        return DriverManager.getConnection(URL_ENV, USER_ENV, PASS_ENV);
     }
 
     public static void testConnection() {

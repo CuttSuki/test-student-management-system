@@ -28,6 +28,8 @@ public class StudentViewController {
     @FXML private TableColumn<Student, String> lastNameColumn;
     @FXML private TableColumn<Student, String> emailColumn;
     @FXML private TableColumn<Student, Integer> ageColumn;
+    @FXML private TableColumn<Student, String> createdAtColumn;
+    @FXML private TableColumn<Student, String> updatedAtColumn;
     @FXML private Button updateButton;
     @FXML private Button deleteButton;
     @FXML private Button confirmUpdateButton;
@@ -55,6 +57,8 @@ public class StudentViewController {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        updatedAtColumn.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         StudentSpawner.getAllStudentData(studentList);
         tableView.setOnMouseClicked(event -> {
             System.out.println(tableView.getSelectionModel().getSelectedItem().getClass());
