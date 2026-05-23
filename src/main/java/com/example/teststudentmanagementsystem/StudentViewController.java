@@ -43,11 +43,14 @@ public class StudentViewController {
     @FXML private Pane deletePane;
     @FXML private Pane updatePane;
     @FXML private TextField searchTextField;
+    @FXML private ChoiceBox<String> searchByChoiceBox;
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
     private final int ROWS_PER_PAGE = 10;
 
     @FXML
     public void initialize(){
+        searchByChoiceBox.getItems().addAll("first_name", "last_name", "email");
+        searchByChoiceBox.setValue("first_name");
         updatePane.setVisible(false);
         anchorPane.setFocusTraversable(true);
         anchorPane.setOnMouseClicked(event -> {
@@ -165,12 +168,14 @@ public class StudentViewController {
     }
     @FXML
     private void onSearchButtonClicked() throws SQLException{
+        String searchBy = searchByChoiceBox.getValue();
         String searcher = searchTextField.getText();
         studentList.clear();
         if (searcher.isEmpty()){
             StudentSpawner.getAllStudentData(studentList);
         } else {
-            StudentSpawner.getSearchedStudents(studentList, searcher);
+            StudentSpawner.getSearchedStudents(studentList, searchBy, searcher);
+            System.out.println(searchBy);
         }
         loadPagination();
     }

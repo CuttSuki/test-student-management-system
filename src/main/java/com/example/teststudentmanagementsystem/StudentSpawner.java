@@ -43,15 +43,16 @@ public class StudentSpawner {
         }
     }
 
-    public static void getSearchedStudents(ObservableList<Student>studentList, String searcher) throws SQLException{
-        String sql = """
-                SELECT id, first_name, last_name, email, age, created_at, updated_at from STUDENTS WHERE LOWER(first_name) LIKE ? ORDER BY id
-                """;
+    public static void getSearchedStudents(ObservableList<Student>studentList, String searchBy, String searcher) throws SQLException{
+        String sql = String.format("""
+                SELECT id, first_name, last_name, email, age, created_at, updated_at from STUDENTS WHERE LOWER(%s) LIKE ? ORDER BY id
+                """, searchBy);
         try(Connection conn = Database.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, searcher + "%");
             try (ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()){
+                    System.out.println("Found");
                     int id = rs.getInt("id");
                     String firstName = rs.getString("first_name");
                     String lastName = rs.getString("last_name");
